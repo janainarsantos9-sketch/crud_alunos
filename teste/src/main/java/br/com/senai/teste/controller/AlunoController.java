@@ -28,3 +28,34 @@ public class AlunoController {
         .body(alunoCadastrado);
     }
 }
+
+@RestController 
+@RequestMapping("/alunos")
+public class AlunoController{
+
+private final alunoService alunoservice;
+
+public AlunoController(AlunoService alunoService){
+    this.alunoService = alunoService;
+}
+
+@PostMapping
+public ResponseEntrity<Aluno> cadastrar)
+       @ResponseBody Aluno aluno){
+
+        Aluno alunoCadastrado = alunoService.cadastrar(aluno);
+
+        return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(alunoCadastrar);
+       }
+
+       @GetMapping
+       public ResponseEntity<List<Aluno>> listar() {
+         
+        List<Aluno> alunos = alunoService.listar();
+        return ResponseEntity.ok(alunos);
+       
+    }
+
+}
