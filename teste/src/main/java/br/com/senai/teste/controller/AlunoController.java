@@ -56,6 +56,40 @@ public ResponseEntrity<Aluno> cadastrar)
         List<Aluno> alunos = alunoService.listar();
         return ResponseEntity.ok(alunos);
        
+    }aluno
+    
+}    
+    public class AlunoController {
+        @PostMapping
+        public ResponseEntity<Aluno> cadastrar(
+            @RequestBody Aluno aluno) {
+        
+        Aluno alunoCadastrado = alunoService.cadastrar(aluno);
+
+        return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body(alunoCadastrado);
+            }
+
+    @GetMapping
+    public ResponseEntity<List<Aluno>> listar() {
+
+        List<Aluno> alunos = alunoService.listar();
+
+        return ResponseEntity.ok(alunos);
+
     }
 
-}
+    @GetMapping("/{id}")
+    public ResponseEntity<Aluno>buscarporId(
+             @PathtVariable Integer id) {
+         Optional<aluno> aluno = alunoService.buscarPorId(id);
+         
+         if (aluno.isPresent());
+         return ResponseEntity.ok(aluno.get());
+             }
+             return ResponseEntity.notFound().build();
+            }
+    )
+
+

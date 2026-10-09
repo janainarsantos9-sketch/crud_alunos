@@ -60,4 +60,41 @@ public class alunoService {
     }
 }
 
+public class alunoService{
+}
+
+public Aluno cadastrar(Aluno aluno){
+    return alunoRepository.save(aluno);
+}
+public List<Aluno>listar(){
+    return alunoRepository.finalAll();
+}
+
+public Optional<Aluno> buscarPorid(Integer id) {
+    return alunorepository.finAllById(id);
+}
+
+public Optional<aluno>atualizar(
+        Integer id, AlunonovosDados) {.findbyId(id);
+    
+    Optional<aluno> alunoencontrado = alunoRepository.findById(id);
+    
+
+    if(alunoEncontrado.isEmpty()) {
+        return optional.empty();
+    }
+
+    Aluno aluno = alunoEncontrado.get();
+
+    aluno.setNome(novosdados.getNome();
+    aluno.setEmail(novosDados.getEmal();
+
+    return Optional.of(alunoRepository.save(aluno));
+}
+
+
+    
+    
+
+
 
