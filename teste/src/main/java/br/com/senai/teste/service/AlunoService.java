@@ -1,100 +1,60 @@
 package br.com.senai.teste.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.senai.teste.model.Aluno;
 import br.com.senai.teste.repository.AlunoRepository;
 
-@Service 
-public  class AlunoService {
-
-    private final AlunoRepository alunoRepository;
-
-    public AlunoService(AlunoRepository alunoRepository){
-        this.alunoRepository = alunoRepository;
-    }
-
-    public Aluno cadastrar(Aluno aluno) {
-        return alunoRepository.save(aluno);
-    }
-}
-
-@Service 
+@Service
 public class AlunoService {
 
-    private final AlunoRepository;
+    private final AlunoRepository alunoRepository;
 
     public AlunoService(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
 
     }
+
     public Aluno cadastrar(Aluno aluno) {
         return alunoRepository.save(aluno);
 
     }
+
     public List<Aluno> listar() {
         return alunoRepository.findAll();
     }
-}
 
-@Service
-public class alunoService {
-
-    private final AlunoRepository alunoRepository;
-
-    public alunoService(AlunoRepository alunoRepository){
-        this.alunoRepository = alunoRepository;
-
-    }
-    public aluno cadastrar(Aluno aluno){
-        return alunoRepostory.save(aluno);
-
-    }
-
-    public List<Aluno> listar(){
-        return alunoRepository.findAll();
-
-    }
-    public Optional<Aluno> buscarPorId(Integer id){
+    public Optional<Aluno> buscarPorId(Integer id) {
         return alunoRepository.findById(id);
     }
-}
 
-public class alunoService{
-}
+    public Optional<Aluno> atualizar(
+            Integer id, Aluno novosDados) {
 
-public Aluno cadastrar(Aluno aluno){
-    return alunoRepository.save(aluno);
-}
-public List<Aluno>listar(){
-    return alunoRepository.finalAll();
-}
+        Optional<Aluno> alunoEncontrado = alunoRepository.findById(id);
 
-public Optional<Aluno> buscarPorid(Integer id) {
-    return alunorepository.finAllById(id);
-}
+        if (alunoEncontrado.isEmpty()) {
+            return Optional.empty();
+        }
 
-public Optional<aluno>atualizar(
-        Integer id, AlunonovosDados) {.findbyId(id);
-    
-    Optional<aluno> alunoencontrado = alunoRepository.findById(id);
-    
+        Aluno aluno = alunoEncontrado.get();
 
-    if(alunoEncontrado.isEmpty()) {
-        return optional.empty();
+        aluno.setNome(novosDados.getNome());
+        aluno.setEmail(novosDados.getEmail());
+
+        return Optional.of(alunoRepository.save(aluno));
     }
 
-    Aluno aluno = alunoEncontrado.get();
+    public boolean deletar(Integer id) {
 
-    aluno.setNome(novosdados.getNome();
-    aluno.setEmail(novosDados.getEmal();
+        if (!alunoRepository.existsById(id)) {
+            return false;
+        }
 
-    return Optional.of(alunoRepository.save(aluno));
+        alunoRepository.deleteById(id);
+        return true;
+    }
 }
-
-
-    
-    
-
-
-
