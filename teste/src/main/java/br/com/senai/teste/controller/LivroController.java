@@ -1,0 +1,85 @@
+package br.com.senai.teste.controller;
+
+import java.lang.annotation.Inherited;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.senai.teste.model.Livro;
+import br.com.senai.teste.service.LivroService;
+import jakarta.validation.Valid;
+
+@RestController 
+@RequestMapping ("/livros")
+public class LivroController {
+
+    private final LivroService livroService;
+
+    public LivroController(LivroService livroService) {
+        this.livroService = livroService;
+    }
+
+    @PostMapping 
+    public ResponseEntity<Livro> cadastrar(@Valid @RequestBody Livro livro) {
+        Livro livroCadastrado = livroService.cadastrar(livro);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(livroCadastrado);
+    }
+
+    @GetMapping 
+    public ResponseEntity<List<Livro>> listar() {
+        List<Livro> livros =livroService.listar();
+        return ResponseEntity.ok(livros);
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Livro> buscarporId(
+            @PathVariable Integer id) {
+        Optional<Livro> livros= livroService
+        if (livros.isPresent()) {
+            return ResponseEntity.ok(.get());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping ("/{id}")
+    public ResponseEntity<Livro> atualizar(
+            @PathVariable Integer id,
+            @RequestBody Livro novosDados) {
+
+        Optional<Livro> livrosAtualizado = livroService.atualizar(id, novosDados);
+
+        if (livrosAtualizado.isPresent()){
+             ResponseEntity.ok(livrosAtualizado.get());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+e
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(
+            @PathVariable Integer id) {
+
+        boolean deletado = livroService.deletar(id);
+
+        if (deletado) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+
+    }
+
+}
