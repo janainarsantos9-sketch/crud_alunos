@@ -1,11 +1,11 @@
 package br.com.senai.teste.controller;
 
-import java.lang.annotation.Inherited;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,9 +46,9 @@ public class LivroController {
     @GetMapping("/{id}")
     public ResponseEntity<Livro> buscarporId(
             @PathVariable Integer id) {
-        Optional<Livro> livros= livroService
+        Optional<Livro> livros= livroService.buscarPorId(id);
         if (livros.isPresent()) {
-            return ResponseEntity.ok(.get());
+            return ResponseEntity.ok(livros.get());
         }
 
         return ResponseEntity.notFound().build();
@@ -62,13 +62,13 @@ public class LivroController {
         Optional<Livro> livrosAtualizado = livroService.atualizar(id, novosDados);
 
         if (livrosAtualizado.isPresent()){
-             ResponseEntity.ok(livrosAtualizado.get());
+            return ResponseEntity.ok(livrosAtualizado.get());
         }
 
         return ResponseEntity.notFound().build();
     }
-e
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping ("/{id}")
     public ResponseEntity<Void> delete(
             @PathVariable Integer id) {
 
